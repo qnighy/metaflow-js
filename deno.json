@@ -1,5 +1,9 @@
 {
-  "tasks": {
-    "dev": "deno run --watch main.ts"
+  "name": "@qnighy/metaflow",
+  "version": "0.1.0",
+  "exports": {
+    "./do": "./do.ts",
+    "./exception": "./exception.ts",
+    "./tap": "./tap.ts"
   }
 }
