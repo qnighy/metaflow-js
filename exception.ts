@@ -1,7 +1,7 @@
 /**
  * Throws the given exception.
  * @param e The exception to throw
- * 
+ *
  * @example
  *   ```typescript
  *   const value = Number(input) || Throw(new Error("Invalid input"));
@@ -14,7 +14,7 @@ export function Throw(e: unknown): never {
 /**
  * Throws the exception value given as `this`.
  * @param this The exception to throw
- * 
+ *
  * @example
  *   ```typescript
  *   const value = Number(input) || ThrowMe.call(new Error("Invalid input"));
@@ -29,13 +29,13 @@ export function ThrowMe(this: unknown): never {
  * Initiates a method chain to handle exceptions.
  * @param f The function to execute, which may throw an exception that you want to handle.
  * @returns A `TryChain` helper object containing the result of the function.
- * 
- * @example 
+ *
+ * @example
  *   ```typescript
  *   // Catch all and default to null
  *   const url = Try(() => new URL(input)).done(() => null);
  *   ```
- * 
+ *
  * @example
  *   ```typescript
  *   // Catch a specific error and default to a special value
@@ -118,7 +118,7 @@ export class TryChain<out T, out E> {
    *
    * @param f A transformation applied if it's an Ok.
    * @returns The next chained value, possibly after the transformation.
-   * 
+   *
    * @example
    *   ```typescript
    *   // Extract a hostname from a URL, or use a default value
@@ -137,7 +137,7 @@ export class TryChain<out T, out E> {
 
   /**
    * Check for a specific error and handle it in a separate function.
-   * 
+   *
    * This is useful when you want to handle errors in more than one way
    * depending on the error type, other than rethrowing.
    *
@@ -158,7 +158,7 @@ export class TryChain<out T, out E> {
 
   /**
    * Check for a specific error, and if it doesn't match, simply rethrow it.
-   * 
+   *
    * Useful when you want to handle only a specific class of errors.
    *
    * @param pred The predicate. See {@link ErrorPredicate} for details.
@@ -212,7 +212,7 @@ export class TryChain<out T, out E> {
 
 /**
  * Values describing condition on an error instance. There are three types of predicates:
- * 
+ *
  * 1. Error constructor, like `SyntaxError` or `TypeError`
  * 2. Error predicate function, like `(e) => e instanceof TypeError && e.message.includes("ERR_INVALID_URL")`
  * 3. Union of the above, like `[SyntaxError, TypeError, (e) => e.name === "URLError"]`

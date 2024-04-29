@@ -4,7 +4,7 @@
  * @param obj the tap target
  * @param f the side-effect function
  * @returns the first argument
- * 
+ *
  * @example
  *   ```typescript
  *   const result = tap(42, console.log); // console.log(42) is called, then 42 is returned
@@ -23,7 +23,7 @@ export function tap<T>(obj: T, f: (value: T) => void): T {
  * @param this the tap target
  * @param f the side-effect function
  * @returns the first argument
- * 
+ *
  * @example
  *   ```typescript
  *   const result = tapMe.call(42, console.log); // console.log(42) is called, then 42 is returned
@@ -41,7 +41,7 @@ export function tapMe<T>(this: T, f: (value: T) => void): T {
  * @param obj the tap target
  * @param f the asynchronous side-effect function
  * @returns the first argument
- * 
+ *
  * @example
  *   ```typescript
  *   const result = await tapAsync(42, async (x) => console.log(x)); // console.log(42) is called, then 42 is returned
@@ -60,7 +60,7 @@ export async function tapAsync<T>(obj: T, f: (value: T) => Promise<void>): Promi
  * @param this the tap target
  * @param f the asynchronous side-effect function
  * @returns the first argument
- * 
+ *
  * @example
  *   ```typescript
  *   const result = await tapMeAsync.call(42, async (x) => console.log); // console.log(42) is called, then 42 is returned

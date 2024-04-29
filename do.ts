@@ -87,7 +87,7 @@ export class Thunk<out T> {
    * @param f the right hand side of the call-this operator, like `f` in `e~>f(...args)`.
    * @param args the arguments, like `...args` in `e~>f(...args)`.
    * @returns next builder in the chain
-   * 
+   *
    * @example
    *  ```typescript
    *  function double(this: number): number {
@@ -108,7 +108,7 @@ export class Thunk<out T> {
    * @param f the right hand side of the call-this operator, like `f` in `e~>f(...args)`.
    * @param args the arguments, like `...args` in `e~>f(...args)`.
    * @returns next builder in the chain
-   * 
+   *
    * @example
    *  ```typescript
    *  async function double(this: number): number {
@@ -128,7 +128,7 @@ export class Thunk<out T> {
    * The tap method as known as Object#tap in Ruby.
    * @param f the side-effect function
    * @returns next builder in the chain
-   * 
+   *
    * @example
    * ```typescript
    * const result = Do(42)
@@ -148,7 +148,7 @@ export class Thunk<out T> {
    * The tap method as known as Object#tap in Ruby, async version.
    * @param f the asynchronous side-effect function
    * @returns next builder in the chain
-   * 
+   *
    * @example
    * ```typescript
    * const result = await Do(42)
@@ -265,7 +265,7 @@ export class AsyncThunk<T> {
    * @param f the right hand side of the call-this operator, like `f` in `e~>f(...args)`.
    * @param args the arguments, like `...args` in `e~>f(...args)`.
    * @returns next builder in the chain
-   * 
+   *
    * @example
    *  ```typescript
    *  function double(this: number): number {
@@ -287,7 +287,7 @@ export class AsyncThunk<T> {
    * @param f the right hand side of the call-this operator, like `f` in `e~>f(...args)`.
    * @param args the arguments, like `...args` in `e~>f(...args)`.
    * @returns next builder in the chain
-   * 
+   *
    * @example
    *  ```typescript
    *  async function double(this: number): number {
@@ -308,7 +308,7 @@ export class AsyncThunk<T> {
    * The tap method as known as Object#tap in Ruby.
    * @param f the side-effect function
    * @returns next builder in the chain
-   * 
+   *
    * @example
    * ```typescript
    * const result = await Do(42)
@@ -328,7 +328,7 @@ export class AsyncThunk<T> {
    * The tap method as known as Object#tap in Ruby, async version.
    * @param f the asynchronous side-effect function
    * @returns next builder in the chain
-   * 
+   *
    * @example
    * ```typescript
    * const result = await Do(42)
