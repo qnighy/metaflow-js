@@ -74,7 +74,9 @@ export function Try<T>(f: () => T): TryChain<T, unknown> {
  * @param f The asynchronous function to execute, which may throw (or reject the promise with) an exception that you want to handle.
  * @returns A promise to the `TryChain` helper object containing the result of the function.
  */
-export async function TryAsync<T>(f: () => Promise<T>): Promise<TryChain<T, unknown>> {
+export async function TryAsync<T>(
+  f: () => Promise<T>,
+): Promise<TryChain<T, unknown>> {
   let value: T;
   try {
     value = await f();
@@ -145,7 +147,10 @@ export class TryChain<out T, out E> {
    * @param f The function called if the predicate matches
    * @returns the next chained value
    */
-  case<U, E2>(pred: ErrorPredicate<E2>, f: (subchain: TryChain<never, E2>) => U): TryChain<T | U, E> {
+  case<U, E2>(
+    pred: ErrorPredicate<E2>,
+    f: (subchain: TryChain<never, E2>) => U,
+  ): TryChain<T | U, E> {
     if (this.result.type === "Ok") {
       return this;
     } else if (isErrorOf(this.result.error, pred)) {
@@ -222,7 +227,7 @@ export type ErrorPredicate<E> =
   | ErrorPredicateFunction<E>
   | ErrorUnionPredicate<E>;
 export type ErrorConstructorPredicate<out E> = new (...args: unknown[]) => E;
-export type ErrorPredicateFunction<out E> = (e: unknown) => e is E
+export type ErrorPredicateFunction<out E> = (e: unknown) => e is E;
 export type ErrorUnionPredicate<out E> = ErrorPredicate<E>[];
 
 /**
@@ -237,7 +242,8 @@ export type ErrorUnionPredicate<out E> = ErrorPredicate<E>[];
  */
 export function isErrorOf<E>(e: unknown, pred: ErrorPredicate<E>): e is E {
   if (typeof pred === "function") {
-    const isLikelyErrorConstructor = pred.prototype instanceof Error || Object.getPrototypeOf(pred.prototype) !== Object.prototype;
+    const isLikelyErrorConstructor = pred.prototype instanceof Error ||
+      Object.getPrototypeOf(pred.prototype) !== Object.prototype;
     if (isLikelyErrorConstructor) {
       return e instanceof pred;
     } else {

@@ -49,7 +49,10 @@ export function tapMe<T>(this: T, f: (value: T) => void): T {
  *   // Or, even without tap: const result = 42 |> (await Promise.resolve(console.log(%)), %);
  *   ```
  */
-export async function tapAsync<T>(obj: T, f: (value: T) => Promise<void>): Promise<T> {
+export async function tapAsync<T>(
+  obj: T,
+  f: (value: T) => Promise<void>,
+): Promise<T> {
   await f(obj);
   return obj;
 }
@@ -67,7 +70,10 @@ export async function tapAsync<T>(obj: T, f: (value: T) => Promise<void>): Promi
  *   // Or: const result = await 42~>tapMeAsync(async (x) => console.log(x));
  *   ```
  */
-export async function tapMeAsync<T>(this: T, f: (value: T) => Promise<void>): Promise<T> {
+export async function tapMeAsync<T>(
+  this: T,
+  f: (value: T) => Promise<void>,
+): Promise<T> {
   await f(this);
   return this;
 }

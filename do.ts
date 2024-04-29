@@ -79,7 +79,10 @@ export class Thunk<out T> {
    *   ```
    */
   pipeAwait<U>(f: (value: T) => Promise<U>): AsyncThunk<U> {
-    return new (AsyncThunk as AsyncThunkConstructor<U>)([...this._steps, [true, f as (x: unknown) => Promise<unknown>]]);
+    return new (AsyncThunk as AsyncThunkConstructor<U>)([...this._steps, [
+      true,
+      f as (x: unknown) => Promise<unknown>,
+    ]]);
   }
 
   /**
@@ -99,7 +102,10 @@ export class Thunk<out T> {
    *  console.log(result); // => 84
    *  ```
    */
-  rcall<Args extends unknown[], R, F extends (this: T, ...args: Args) => R>(f: F, ...args: Args): Thunk<R> {
+  rcall<Args extends unknown[], R, F extends (this: T, ...args: Args) => R>(
+    f: F,
+    ...args: Args
+  ): Thunk<R> {
     return this.pipe((value) => f.call(value, ...args));
   }
 
@@ -120,7 +126,11 @@ export class Thunk<out T> {
    *  console.log(result); // => 84
    *  ```
    */
-  rcallAwait<Args extends unknown[], R, F extends (this: T, ...args: Args) => Promise<R>>(f: F, ...args: Args): AsyncThunk<R> {
+  rcallAwait<
+    Args extends unknown[],
+    R,
+    F extends (this: T, ...args: Args) => Promise<R>,
+  >(f: F, ...args: Args): AsyncThunk<R> {
     return this.pipeAwait((value) => f.call(value, ...args));
   }
 
@@ -162,7 +172,9 @@ export class Thunk<out T> {
   }
 }
 
-type AsyncThunkConstructor<T> = new (steps: readonly AsyncStep[]) => AsyncThunk<T>;
+type AsyncThunkConstructor<T> = new (
+  steps: readonly AsyncStep[],
+) => AsyncThunk<T>;
 
 /**
  * An asynchronous variant of {@link Thunk}.
@@ -195,10 +207,11 @@ export class AsyncThunk<T> {
     // .pipeAwait().pipeAwait().pipeAwait() // => 4 awaits
     // ```
 
-    const isSimplePipeline =
-      this._steps.length >= 1
-      && this._steps[this._steps.length - 1][0]
-      && this._steps.slice(0, this._steps.length - 1).every(([isAsync]) => !isAsync);
+    const isSimplePipeline = this._steps.length >= 1 &&
+      this._steps[this._steps.length - 1][0] &&
+      this._steps.slice(0, this._steps.length - 1).every(([isAsync]) =>
+        !isAsync
+      );
     if (isSimplePipeline) {
       // Simple means only the last one is async; no additional await
       // Minimal of 1 microtick (from the user-returned Promise)
@@ -216,7 +229,9 @@ export class AsyncThunk<T> {
           current = isAsync ? await f(current) : f(current);
         }
         if (typeof (current as Promise<unknown>)?.then === "function") {
-          throw new Error("AsyncThunk: pipe callback returned a promise; try pipeAwait instead");
+          throw new Error(
+            "AsyncThunk: pipe callback returned a promise; try pipeAwait instead",
+          );
         }
         return current as T;
       })();
@@ -238,7 +253,10 @@ export class AsyncThunk<T> {
    *   ```
    */
   pipe<U>(f: (value: T) => U): AsyncThunk<U> {
-    return new AsyncThunk([...this._steps, [false, f as (x: unknown) => unknown]]);
+    return new AsyncThunk([...this._steps, [
+      false,
+      f as (x: unknown) => unknown,
+    ]]);
   }
 
   /**
@@ -257,7 +275,10 @@ export class AsyncThunk<T> {
    *   ```
    */
   pipeAwait<U>(f: (value: T) => Promise<U>): AsyncThunk<U> {
-    return new AsyncThunk([...this._steps, [true, f as (x: unknown) => Promise<unknown>]]);
+    return new AsyncThunk([...this._steps, [
+      true,
+      f as (x: unknown) => Promise<unknown>,
+    ]]);
   }
 
   /**
@@ -278,7 +299,10 @@ export class AsyncThunk<T> {
    *  console.log(result); // => 86
    *  ```
    */
-  rcall<Args extends unknown[], R, F extends (this: T, ...args: Args) => R>(f: F, ...args: Args): AsyncThunk<R> {
+  rcall<Args extends unknown[], R, F extends (this: T, ...args: Args) => R>(
+    f: F,
+    ...args: Args
+  ): AsyncThunk<R> {
     return this.pipe((value) => f.call(value, ...args));
   }
 
@@ -300,7 +324,11 @@ export class AsyncThunk<T> {
    *  console.log(result); // => 86
    *  ```
    */
-  rcallAwait<Args extends unknown[], R, F extends (this: T, ...args: Args) => Promise<R>>(f: F, ...args: Args): AsyncThunk<R> {
+  rcallAwait<
+    Args extends unknown[],
+    R,
+    F extends (this: T, ...args: Args) => Promise<R>,
+  >(f: F, ...args: Args): AsyncThunk<R> {
     return this.pipeAwait((value) => f.call(value, ...args));
   }
 

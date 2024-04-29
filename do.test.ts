@@ -38,7 +38,7 @@ Deno.test("Fails on unprecedented Promise collapse", async () => {
       .pipeAwait((it) => Promise.resolve(it + 1))
       .pipe((it) => Promise.resolve(it * 2))
       .done();
-  })
+  });
 });
 
 Deno.test("Microtick counting baseline: resolve-and-await takes 1 turn", async () => {
