@@ -6,6 +6,13 @@ This is a small library of utility functions, just like
 - data flow patterns
 - control flow patterns
 
+## Installation
+
+- Node.js: `npx jsr add @qnighy/metaflow` but check
+  [Using JSR with Node.js](https://jsr.io/docs/with/node) for details,
+  especially with `.npmrc` things.
+- Deno: `deno add @qnighy/metaflow`
+
 ## `exception.ts`: expression-based exception handling
 
 This library is about exception handling, but with two policies:
@@ -30,7 +37,7 @@ Why not the "Result" pattern? I have two major reasons:
 Let's get to the examples:
 
 ```typescript
-import { Throw, Try } from "metaflow/exception.ts";
+import { Throw, Try } from "jsr:@qnighy/metaflow/exception";
 
 // Catch all and default to null
 const url = Try(() => new URL(input)).done(() => null);
@@ -69,6 +76,8 @@ chaining. I decided to (probably re-)invent a wheel because I couldn't find one,
 although the idea is simple.
 
 ```typescript
+import { Do } from "jsr:@qnighy/metaflow/do";
+
 const result = Do(42)
   .pipe((it) => it + 1) // Equivalent to: |> % + 1
   .pipe((it) => it * 2) // Equivalent to: |> % * 2
@@ -84,6 +93,8 @@ As a typical method chain, extending it with other operators is easy. One such
 example is equivalent to `|> await`:
 
 ```typescript
+import { Do } from "jsr:@qnighy/metaflow/do";
+
 const result = await Do(42)
   .pipeAwait(async (it) => it + 1) // Equivalent to: |> await Promise.resolve(% + 1)
   .pipeAwait(async (it) => it * 2) // Equivalent to: |> await Promise.resolve(% * 2)
@@ -94,6 +105,8 @@ console.log(result); // => 86
 There's also an alternative to the `~>` operator:
 
 ```typescript
+import { Do } from "jsr:@qnighy/metaflow/do";
+
 function double(this: number): number {
   return this * 2;
 }
@@ -109,6 +122,8 @@ console.log(result); // => 86
 Utilities that would be convenient once `~>` is available.
 
 ```typescript
+import { tapMe } from "jsr:@qnighy/metaflow/tap";
+
 const result = 42~>tapMe((x) => console.log(x)) + 1;
 console.log(result); // => 43
 ```
