@@ -12,5 +12,6 @@ jobs:
       - uses: denoland/setup-deno@v1
         with:
           deno-version: v1.x
+      - run: deno check **/*.ts
       - run: deno test
       - run: deno fmt --check
