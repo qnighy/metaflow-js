@@ -226,7 +226,7 @@ export type ErrorPredicate<E> =
   | ErrorConstructorPredicate<E>
   | ErrorPredicateFunction<E>
   | ErrorUnionPredicate<E>;
-export type ErrorConstructorPredicate<out E> = new (...args: unknown[]) => E;
+export type ErrorConstructorPredicate<out E> = new (...args: never[]) => E;
 export type ErrorPredicateFunction<out E> = (e: unknown) => e is E;
 export type ErrorUnionPredicate<out E> = ErrorPredicate<E>[];
 
