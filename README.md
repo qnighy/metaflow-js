@@ -11,7 +11,7 @@ This is a small library of utility functions, just like
 - Node.js: `npx jsr add @qnighy/metaflow` but check
   [Using JSR with Node.js](https://jsr.io/docs/with/node) for details,
   especially with `.npmrc` things.
-- Deno: `deno add @qnighy/metaflow`
+- Deno: `deno add jsr:@qnighy/metaflow`
 
 ## `exception.ts`: expression-based exception handling
 
